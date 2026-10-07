@@ -1,0 +1,35 @@
+{
+  "name": "dep-cooldown-action",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GitHub Action that fails a PR when a lockfile resolves a dependency published less than N days ago. Wraps dep-cooldown.",
+  "keywords": [
+    "github-action",
+    "cooldown",
+    "min-release-age",
+    "supply-chain",
+    "security",
+    "lockfile",
+    "npm",
+    "pnpm",
+    "yarn",
+    "bun"
+  ],
+  "license": "MIT",
+  "author": "Marco Orta <contacto@ortamarco.me>",
+  "homepage": "https://github.com/OrtaMarco/dep-cooldown-action#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrtaMarco/dep-cooldown-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OrtaMarco/dep-cooldown-action/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  }
+}

@@ -1,0 +1,72 @@
+name: 'Dependency Cooldown Check'
+description: 'Fail a PR or push when a lockfile resolves a dependency published less than N days ago, with a job summary and an optional PR comment.'
+author: 'Marco Orta'
+
+branding:
+  icon: 'clock'
+  color: 'blue'
+
+inputs:
+  min-age-days:
+    description: 'Minimum age, in days, a resolved version must have (a decimal such as 7 or 0.5).'
+    required: false
+    default: '7'
+  lockfile:
+    description: 'Lockfile name inside working-directory. Auto-detected when empty.'
+    required: false
+    default: ''
+  working-directory:
+    description: 'Directory of the project to audit.'
+    required: false
+    default: '.'
+  fail-on:
+    description: '`young` fails on too-new versions; `unknown` also fails when a version could not be checked; `never` only reports.'
+    required: false
+    default: 'young'
+  comment:
+    description: 'Post (and keep updating) one comment on the pull request. Needs `pull-requests: write`.'
+    required: false
+    default: 'false'
+  ignore:
+    description: 'Accepted exceptions, `name@version` separated by newlines or commas (e.g. a security patch).'
+    required: false
+    default: ''
+  version:
+    description: 'Exact version of the dep-cooldown npm package to run. Ranges and `latest` are rejected.'
+    required: false
+    default: '0.1.0'
+  github-token:
+    description: 'Token used only to post the PR comment.'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  result:
+    description: '`pass` or `fail`.'
+    value: ${{ steps.check.outputs.result }}
+  young-count:
+    description: 'Versions younger than min-age-days that are not ignored.'
+    value: ${{ steps.check.outputs.young-count }}
+  ignored-count:
+    description: 'Too-new versions accepted through `ignore`.'
+    value: ${{ steps.check.outputs.ignored-count }}
+  unknown-count:
+    description: 'Versions whose age could not be determined.'
+    value: ${{ steps.check.outputs.unknown-count }}
+
+runs:
+  using: 'composite'
+  steps:
+    - id: check
+      # Inputs travel through the environment (INPUT_*), never interpolated into the script.
+      shell: bash
+      env:
+        INPUT_MIN-AGE-DAYS: ${{ inputs.min-age-days }}
+        INPUT_LOCKFILE: ${{ inputs.lockfile }}
+        INPUT_WORKING-DIRECTORY: ${{ inputs.working-directory }}
+        INPUT_FAIL-ON: ${{ inputs.fail-on }}
+        INPUT_COMMENT: ${{ inputs.comment }}
+        INPUT_IGNORE: ${{ inputs.ignore }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_GITHUB-TOKEN: ${{ inputs.github-token }}
+      run: node "$GITHUB_ACTION_PATH/src/main.mjs"
