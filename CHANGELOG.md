@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.0 — 2026-11-09
 
 - First version: composite action running a pinned `dep-cooldown` (default `0.1.1`).
 - Inputs: `min-age-days`, `lockfile`, `working-directory`, `fail-on`, `comment`, `ignore`, `version`, `github-token`.
