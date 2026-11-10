@@ -71,7 +71,7 @@ jobs:
 | `fail-on` | `young` | `young`: fail on too-new versions. `unknown`: also fail when a version's age could not be determined. `never`: only report. |
 | `comment` | `false` | Post one comment on the PR and edit it on later pushes. Needs `pull-requests: write`. |
 | `ignore` | | `name@version` list (newlines or commas, `#` comments). Exact version match. |
-| `version` | `0.1.0` | Exact `dep-cooldown` version. Ranges and `latest` are rejected. |
+| `version` | `0.1.1` | Exact `dep-cooldown` version. Ranges and `latest` are rejected. |
 | `github-token` | `github.token` | Used only to post the comment. |
 
 ## Outputs
@@ -143,5 +143,5 @@ steps:
 
 - `ignore` acepta `nombre@versión` exactos; las excepciones aparecen en el informe.
 - Lo que no se pudo comprobar nunca se presenta como aprobado; `fail-on: unknown` lo hace fallar.
-- `dep-cooldown` se ejecuta con versión exacta fijada (por defecto `0.1.0`); `latest` se rechaza.
+- `dep-cooldown` se ejecuta con versión exacta fijada (por defecto `0.1.1`); `latest` se rechaza.
 - Permisos mínimos: `contents: read`, y `pull-requests: write` solo con `comment: true`.

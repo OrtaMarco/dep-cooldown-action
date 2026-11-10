@@ -34,7 +34,7 @@ inputs:
   version:
     description: 'Exact version of the dep-cooldown npm package to run. Ranges and `latest` are rejected.'
     required: false
-    default: '0.1.0'
+    default: '0.1.1'
   github-token:
     description: 'Token used only to post the PR comment.'
     required: false
